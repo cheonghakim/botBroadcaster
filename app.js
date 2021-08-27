@@ -15,7 +15,7 @@ class Main {
       this.client.on("message", (channel, tags, message, self) => {
         if (self || !message || !this.authList.includes(tags.username)) return;
         if (message.includes("ai doya")) {
-          shell.exec("cd ../bot", (code, stdout, stderr) => {
+          shell.exec("cd /home/bot", (code, stdout, stderr) => {
             if (stderr) {
               this.client.say(channel, stderr);
             } else {
