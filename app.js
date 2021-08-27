@@ -15,34 +15,31 @@ class Main {
       this.client.on("message", (channel, tags, message, self) => {
         if (self || !message || !this.authList.includes(tags.username)) return;
         if (message.includes("ai doya")) {
-          shell.exec("cd /home/bot", (code, stdout, stderr) => {
+          shell.exec("cd /home/bot & yarn start", (code, stdout, stderr) => {
             if (stderr) {
               this.client.say(channel, stderr);
             } else {
-              shell.exec(`yarn start`);
               this.client.say(channel, stdout);
             }
           });
         } else if (message.includes("ai rom")) {
           shell.exec(
-            "cd ../rom/bot & git checkout rombot",
+            "cd /home/rom/bot & yarn start",
             (code, stdout, stderr) => {
               if (stderr) {
                 this.client.say(channel, stderr);
               } else {
-                shell.exec(`yarn start`);
                 this.client.say(channel, stdout);
               }
             }
           );
         } else if (message.includes("ai chu")) {
           shell.exec(
-            "cd ../chu/bot & git checkout chubot-v1",
+            "cd /home/chu/bot & yarn start",
             (code, stdout, stderr) => {
               if (stderr) {
                 this.client.say(channel, stderr);
               } else {
-                shell.exec(`yarn start`);
                 this.client.say(channel, stdout);
               }
             }
