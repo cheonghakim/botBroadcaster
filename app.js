@@ -19,8 +19,8 @@ class Main {
             "cd ../bot & git checkout test-b",
             (code, stdout, stderr) => {
               if (stderr) {
-                this.client.say(channel, stdout);
-                shell.exec(`yarn start`);
+                this.client.say(channel, stderr);
+                shell.exec(`cd ../bot & yarn start`);
               } else {
                 shell.exec(`yarn start`);
                 this.client.say(channel, "KonCha ");
@@ -32,8 +32,8 @@ class Main {
             "cd ../bot & git checkout rombot",
             (code, stdout, stderr) => {
               if (stderr) {
-                this.client.say(channel, stdout);
-                shell.exec(`yarn start`);
+                this.client.say(channel, stderr);
+                shell.exec(`cd ../bot & yarn start`);
               } else {
                 shell.exec(`yarn start`);
                 this.client.say(channel, "KonCha ");
@@ -45,8 +45,8 @@ class Main {
             "cd ../bot & git checkout chubot-v1",
             (code, stdout, stderr) => {
               if (stderr) {
-                this.client.say(channel, stdout);
-                shell.exec(`yarn start`);
+                this.client.say(channel, stderr);
+                shell.exec(`cd ../bot & yarn start`);
               } else {
                 shell.exec(`yarn start`);
                 this.client.say(channel, "KonCha ");
