@@ -15,41 +15,35 @@ class Main {
       this.client.on("message", (channel, tags, message, self) => {
         if (self || !message || !this.authList.includes(tags.username)) return;
         if (message.includes("ai doya")) {
-          shell.exec(
-            "cd ../bot & git checkout test-b",
-            (code, stdout, stderr) => {
-              if (stderr) {
-                this.client.say(channel, stderr);
-                shell.exec(`cd ../bot & yarn start`);
-              } else {
-                shell.exec(`yarn start`);
-                this.client.say(channel, "KonCha ");
-              }
+          shell.exec("cd ../bot", (code, stdout, stderr) => {
+            if (stderr) {
+              this.client.say(channel, stderr);
+            } else {
+              shell.exec(`yarn start`);
+              this.client.say(channel, stdout);
             }
-          );
+          });
         } else if (message.includes("ai rom")) {
           shell.exec(
-            "cd ../bot & git checkout rombot",
+            "cd ../rom/bot & git checkout rombot",
             (code, stdout, stderr) => {
               if (stderr) {
                 this.client.say(channel, stderr);
-                shell.exec(`cd ../bot & yarn start`);
               } else {
                 shell.exec(`yarn start`);
-                this.client.say(channel, "KonCha ");
+                this.client.say(channel, stdout);
               }
             }
           );
         } else if (message.includes("ai chu")) {
           shell.exec(
-            "cd ../bot & git checkout chubot-v1",
+            "cd ../chu/bot & git checkout chubot-v1",
             (code, stdout, stderr) => {
               if (stderr) {
                 this.client.say(channel, stderr);
-                shell.exec(`cd ../bot & yarn start`);
               } else {
                 shell.exec(`yarn start`);
-                this.client.say(channel, "KonCha ");
+                this.client.say(channel, stdout);
               }
             }
           );
