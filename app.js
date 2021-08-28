@@ -9,27 +9,34 @@ class Main {
     this.authList = ["public_04", "sangchubot", "rombot"];
     this.connect();
   }
+
   connect() {
     try {
       this.client.connect();
       this.client.on("message", (channel, tags, message, self) => {
         if (self || !message || !this.authList.includes(tags.username)) return;
-        if (message.includes("ai doya")) {
-          //   shell.exec("cd /home/bot & yarn start", (code, stdout, stderr) => {
-          //     if (stderr) {
-          //       this.client.say(channel, stderr);
-          //     } else {
-          //       this.client.say(channel, stdout);
-          //     }
-          //   });
-          shell.exec("cd /home/bot");
-          shell.exec("yarn start");
-        } else if (message.includes("ai rom")) {
-          shell.exec("cd /home/rom/bot");
-          shell.exec("yarn start");
-        } else if (message.includes("ai chu")) {
-          shell.exec("cd /home/chu/bot");
-          shell.exec("yarn start");
+        if (message.includes("ai on")) {
+          shell.cd("../bot");
+          const { stdout1 } = shell.exec("git branch");
+          const { stderr1 } = shell.exec("git checkout test-b");
+          this.client.say(channel, `${stderr1}`);
+          const { stdout, stderr, code } = shell.exec("yarn start");
+          if (stderr) this.client.say(channel, `${stderr}`);
+          if (stdout) this.client.say(channel, stdout);
+        } else {
+          try {
+            const splited = message.split(" ");
+            if (splited) {
+              console.log(splited.slice(1).join(" "));
+              const { stdout, stderr, code } = shell[splited[0]](
+                splited.slice(1).join(" ")
+              );
+              if (stderr) this.client.say(channel, `${stderr}`);
+              if (stdout) this.client.say(channel, stdout);
+            }
+          } catch (error) {
+            this.client.say(channel, `${error}`);
+          }
         }
       });
     } catch (error) {
